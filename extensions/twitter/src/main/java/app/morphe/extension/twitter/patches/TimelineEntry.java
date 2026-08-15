@@ -34,6 +34,7 @@ public class TimelineEntry {
         showSensitiveMedia = Pref.showSensitiveMedia();
         hideTopPeopleSearch = (Pref.hideTopPeopleSearch() && SettingsStatus.hideTopPeopleSearch);
         hideTodaysNews = (Pref.hideTodaysNews() && SettingsStatus.hideTodaysNews);
+        mediaVisibility = getFieldMediaVisibility();
     }
 
     private static boolean isEntryIdRemove(String entryId) {
@@ -106,11 +107,7 @@ public class TimelineEntry {
     }
     public static JsonTweetWithVisibilityResults sensitiveMedia(JsonTweetWithVisibilityResults jsonTweetWithVisibilityResults, String fieldName) {
         try {
-            if (showSensitiveMedia) {
-                if (mediaVisibility == null) {
-                    mediaVisibility = jsonTweetWithVisibilityResults.getClass().getDeclaredField(fieldName);
-                    mediaVisibility.setAccessible(true);
-                }
+            if (showSensitiveMedia && mediaVisibility != null) {
                 mediaVisibility.set(jsonTweetWithVisibilityResults, null);
             }
         } catch (Exception unused) {
@@ -152,6 +149,16 @@ public class TimelineEntry {
         }
 
         return videoEnities;
+    }
+    private static final Field getFieldMediaVisibility() {
+        Field[] fields = JsonTweetWithVisibilityResults.class.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (field.getType().getName().indexOf("model.mediavisibility") != -1) {
+                return field;
+            }
+        }
+        return null;
     }
 //end
 }
