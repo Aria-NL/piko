@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "3.9.0-dev.7",
+  "version": "3.9.0-dev.1",
   "patches": [
     {
       "name": "Add ability to copy media link",
@@ -37,6 +37,7 @@
       "dependencies": [
         "BytecodePatch",
         "ResourcePatch",
+        "BytecodePatch",
         "BytecodePatch",
         "BytecodePatch",
         "BytecodePatch",
@@ -1267,7 +1268,7 @@
     },
     {
       "name": "Disable onboarding permission prompts",
-      "description": "Prevents contacts and location permission onboarding prompts from appearing on launch.",
+      "description": "Prevents contacts and location permission onboarding prompts from appearing.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
